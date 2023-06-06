@@ -17,4 +17,4 @@ Dirigido principalmente a mujeres de todas las edades, pero también a hombres i
 <img src="https://avatars.githubusercontent.com/u/132092838?v=4" height="50" width="50">| Carrero, Isabel | isabel.carrero88@gmail.com | [@isaCP14](https://github.com/isaCP14)
 <img src="https://avatars.githubusercontent.com/u/90708856?v=4" height="50" width="50">| Hojberg, Sofía | sofiahojberg@gmail.com | [@sofihoj](https://github.com/sofihoj)
 <img src="https://avatars.githubusercontent.com/u/101934692?v=4" height="50" width="50">| Tassi, Bruno | tassibrunoa@gmail.com | [@brunoat81](https://github.com/brunoat81)
-
+<img src="https://avatars.githubusercontent.com/u/77762365?s=400&u=83da8bcaa88a45b540c6da0d0818753e5f6415a5&v=4" height="50" width="50">| Passalacqua, Nicolás | nicolaspassalacqua51@gmail.com | [@passalacqua51](https://github.com/passalacqua51)
