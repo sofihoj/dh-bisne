@@ -7,6 +7,7 @@
 html,
 body {
     height: 100%;
+    overflow-x: hidden;
 }
 
 body {
@@ -269,7 +270,8 @@ aside .top-sidebar {
     display: block;
 }
 
-.form button:hover {
+.form button:hover,
+.articles-container button:hover {
     font-weight: bold;
     transform: scale(1.01);
     opacity: 0.9;
@@ -294,6 +296,100 @@ aside .top-sidebar {
     background: #967D71;
 }
 
+.banner {
+    height: 180px;
+}
+
+.banner img {
+    width: 100vw;
+    height: 100%;
+    object-fit: cover;
+}
+
+.main-bar {
+    background-color: #967D71;
+    color: #ebebeb;
+    padding: 1px;
+    display: flex;
+    justify-content: center;
+}
+
+.main-bar p {
+    margin: 0;
+    padding: 6px 0;
+    text-transform: uppercase;
+    font-size: 15px;
+}
+
+.img-popular {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 50px 0 20px 0;
+    padding: 0 30px;
+}
+
+.img-popular article {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.img-popular article:hover {
+    transform: scale(1.05);
+}
+
+.img-popular div {
+    width: 200px;
+    height: 200px;
+    border: solid #47453C 1px;
+}
+
+.img-popular div:hover {
+    box-shadow: 0px 5px 10px 0px #9A6C6C;
+}
+
+.img-popular p {
+    color: #47453C;
+    text-transform: uppercase;
+}
+
+.articles-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.fav-products {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas en versión mobile */
+    gap: 50px; /* Espacio entre los artículos */
+    margin: 25px;
+}
+
+.fav-products article {
+    width: 150px;
+    height: 150px;
+    border: solid #47453C 1px;
+    padding: 20px;
+}
+
+.fav-products article:hover {
+    box-shadow: 0px 5px 10px 0px #9A6C6C;
+    transform: scale(1.03);
+}
+
+.articles-container button {
+    background-color: #9A6C6C;
+    color: #ebebeb;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    padding: 15px 25px;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+}
 
 @media (max-width: 480px) {
     .bottom-menu {
@@ -335,10 +431,37 @@ aside .top-sidebar {
         padding: 5px 0;
         font-size: 15px;
     }
+
+    .banner {
+        height: 120px;
+    }
+
 }
+
+@media (max-width: 768px) {
+    .img-popular {
+        flex-direction: column;
+    }
+
+    .img-popular article:nth-child(2) {
+        margin: 30px 0;
+    }
+
+    .img-popular div {
+        width: 150px;
+        height: 150px;
+    }
+}
+
 
 @media (min-width: 481px) {
     aside {
         display: none;
+    }
+}
+
+@media (min-width: 768px) {
+    .fav-products {
+        grid-template-columns: repeat(4, 1fr); /* 4 columnas en versión desktop */
     }
 }
