@@ -10,19 +10,19 @@ app.get('/', (req, res) => {
     res.sendFile(path.resolve(__dirname, "./views/index.html"))
 });
 
-app.get("/login", (req, res) => {
+app.get("/login.html", (req, res) => {
     res.sendFile(path.resolve(__dirname, "./views/login.html"))
 });
 
-app.get("/signup", (req, res) => {
+app.get("/signup.html", (req, res) => {
     res.sendFile(path.resolve(__dirname, "./views/signup.html"))
 });
 
-app.get("/productCart", (req, res) => {
+app.get("/productCart.html", (req, res) => {
     res.sendFile(path.resolve(__dirname, "./views/productCart.html"))
 });
 
-app.get("/productDetail", (req, res) => {
+app.get("/productDetail.html", (req, res) => {
     res.sendFile(path.resolve(__dirname, "./views/productDetail.html"))
 });
 
