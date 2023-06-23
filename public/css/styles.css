@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@200;400&display=swap');
+
 * {
     box-sizing: border-box;
-}
+    font-family: 'Noto Sans', sans-serif;}
 
 html,
 body {
@@ -30,6 +32,11 @@ header li {
     text-transform: uppercase;
 }
 
+header li a {
+    color: #9A6C6C;
+    text-decoration: none;
+}
+
 header .top-header {
     background-color: #967D71;
     height: 25px;
@@ -45,6 +52,12 @@ header .top-header {
     display: flex;
     justify-content: center;
     text-transform: uppercase;
+    font-size: 12px;
+}
+
+.top-header a {
+    color: #EBEBEB;
+    text-decoration: none;
 }
 
 .top-header span {
@@ -81,6 +94,8 @@ footer {
 footer ul {
     display: flex;
     justify-content: center;
+    padding: 0;
+    margin: 10px;
 }
 
 footer li {
@@ -90,7 +105,185 @@ footer li {
     padding: 0 20px;
 }
 
+footer a {
+    color: #EBEBEB;
+    text-decoration: none;
+}
+
 .social-media li {
     font-size: 25px;
     padding: 0 15px;
+}
+
+/*Hover subrayado que aparece desde el medio*/
+.footer-menu a {
+    display: inline-block;
+    position: relative;
+    color: #EBEBEB;
+    text-decoration: none;
+}
+
+.footer-menu a:after {
+    content: "";
+    display: block;
+    margin: auto;
+    height: 1px;
+    width: 0px;
+    transition: all .4s;
+}
+
+.footer-menu a:hover:after {
+    width: 100%;
+    background: #EBEBEB;
+}
+
+/*Hover zoom en iconos*/
+.social-media i {
+    transition: .2s;
+}
+.social-media i:hover {
+    transform: scale(1.13)
+}
+
+.fa-bars {
+    display: none;
+}
+
+aside li {
+    list-style: none;
+}
+
+aside a {
+    text-decoration: none;
+}
+
+.top-sidebar {
+    display: flex;
+    justify-content: space-around;
+}
+
+aside .main-sidebar .arrow {
+    display: inline-block;
+    margin-left: 5px;
+    transition: transform 0.3s ease;
+    /* transform: rotate(90deg); */
+}
+
+aside .main-sidebar .collapsed .arrow {
+    transform: rotate(90deg);
+}
+
+aside .submenu {
+    display: none;
+  }
+
+aside .main-sidebar .open .submenu {
+    display: block;
+}
+
+aside .main-sidebar {
+    flex-grow: 1;
+}
+
+aside .top-sidebar,
+aside .bottom-sidebar {
+    background-color: #9F967F;
+}
+
+aside .top-sidebar {
+    padding: 25px 0;
+    font-size: 20px;
+}
+
+.fa-xmark {
+    color: #EBEBEB;
+}
+
+.search-input input {
+    border-radius: 3px;
+    border: 1px #47453C solid;
+    height: 30px;
+    width: 200px;
+}
+
+.main-sidebar,
+.main-sidebar a {
+    color: #EBEBEB;
+}
+
+.main-sidebar .main-menu li {
+    padding: 10px 0;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+.main-sidebar .submenu li {
+    padding: 5px 0;
+    font-size: 17px;
+    text-transform: capitalize;
+}
+
+.bottom-sidebar,
+.bottom-sidebar a,
+.bottom-sidebar i {
+    color: #EBEBEB;
+}
+
+.bottom-sidebar li {
+    font-size: 22px;
+    text-transform: uppercase;
+    padding: 10px 0;
+}
+
+.bottom-sidebar i {
+    padding-right: 10px;
+}
+
+
+@media (max-width: 480px) {
+    .bottom-menu {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    header nav {
+        display: none;
+    }
+
+    .fa-search {
+        display: none;
+    }
+
+    .fa-bars {
+        display: contents;
+    }
+
+    aside {
+        height: 100%; /* 100% Full-height */
+        width: 0; /* 0 width - change this with JavaScript */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Stay on top */
+        top: 0;
+        left: 0;
+        background-color: #967D71;
+        overflow-x: hidden; /* Disable horizontal scroll */
+        transition: 0.3s; /* 0.5 second transition effect to slide in the sidebar */
+        display: flex;
+        flex-direction: column;
+      }
+
+    body {
+        transition: margin-left .5s; /* If you want a transition effect */
+    }
+
+    footer .bottom-menu li {
+        padding: 5px 0;
+        font-size: 15px;
+    }
+}
+
+@media (min-width: 481px) {
+    aside {
+        display: none;
+    }
 }

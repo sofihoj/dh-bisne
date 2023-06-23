@@ -10,40 +10,105 @@
     <body>
         <header>
             <div class="top-header">
-                <p><span>Login</span>|<span>Sign up</span></p>
+                <p><span><a href="login.html">Login</a></span>|<span><a href="signup.html">Sign up</a></span></p>
             </div>
             <div class="medium-header">
                 <i class="fas fa-search"></i>
+                <i class="fas fa-bars" onclick="openNav()"></i>
                 <div class="logo">
                     <img src="/img/logo.jpg" alt="">
                 </div>
-                <i class="fas fa-cart-shopping"></i>
+                <a href="productCart.html"><i class="fas fa-cart-shopping"></i></a>
             </div>
             <nav>
                 <ul>
-                    <li>Inicio</li>
-                    <li>Categorías</li>
-                    <li>Sobre nosotros</li>
-                    <li>Envíos</li>
-                    <li>Contacto</li>
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#">Categorías</a></li>
+                    <li><a href="#">Sobre nosotros</a></li>
+                    <li><a href="#">Envíos</a></li>
+                    <li><a href="#">Contacto</a></li>
                 </ul>
             </nav>
         </header>
         <main>
+            <aside id="mySidebar">
+                <div class="top-sidebar">
+                    <div class="search-input">
+                        <input type="text" placeholder="Buscar">
+                    </div>
+                    <div class="close-icon">
+                        <i class="fas fa-xmark" onclick="closeNav()"></i>
+                    </div>
+                </div>
+                <div class="main-sidebar">
+                    <ul class="main-menu">
+                        <li class="menu-item"><a href="#">Categorías <span class="arrow">&#9658;</span></a>
+                            <ul class="submenu">
+                                <li><a href="#">Tapices</a></li>
+                                <li><a href="#">Espejos </a></li>
+                                <li><a href="#">Cuelga macetas</a></li>
+                                <li><a href="#">Sujeta cortinas</a></li>
+                                <li><a href="#">Varios</a></li>
+                                <li><a href="#">Cursos</a></li>
+                              </ul>
+                        </li>
+                        <li><a href="#">Sobre nosotros</a></li>
+                        <li><a href="#">Envíos</a></li>
+                        <li><a href="#">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="bottom-sidebar">
+                    <ul>
+                        <li><a href="productCart.html"><i class="fas fa-light fa-cart-shopping"></i>Carrito</a></li>
+                        <li><a href="login.html"><i class="fas fa-regular fa-arrow-right-to-bracket"></i>Login</a></li>
+                    </ul>
+                </div>
+            </aside>
         </main>
         <footer>
             <div class="social-media">
                 <ul>
-                    <li><i class="fa-brands fa-instagram"></i></li>
-                    <li><i class="fa-brands fa-facebook"></i></i></li>
+                    <li><a href="http://www.instagram.com"><i class="fa-brands fa-instagram"></i></a></li>
+                    <li><a href="http://www.facebook.com"><i class="fa-brands fa-facebook"></i></a></li>
                 </ul>
             </div>
-            <ul>
-                <li>Inicio</li>
-                <li>About</li>
-                <li>Envíos</li>
-                <li>Contacto</li>
+            <ul class="bottom-menu">
+                <li class="footer-menu"><a href="#">Inicio</a></li>
+                <li class="footer-menu"><a href="#">About</a></li>
+                <li class="footer-menu"><a href="#">Envíos</a></li>
+                <li class="footer-menu"><a href="#">Contacto</a></li>
             </ul>
         </footer>
+        <script>
+            /*Set ancho de sidebar*/
+            function openNav() {
+                document.getElementById("mySidebar").style.width = "300px";
+                document.getElementByTagName("body").style.marginLeft = "300px";
+            }
+
+            /*Set posición de sidebar*/
+            function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+            }
+
+            //Obtener del menú "Categorías" y su submenú
+            const categoriasMenu = document.querySelector('.menu-item');
+            const submenu = document.querySelector('.submenu');
+
+            //Agrega un evento de clic al elemento del menú "Categorías"
+            categoriasMenu.addEventListener('click', function() {
+                // Alternar la clase "collapsed" en el elemento del menú "Categorías"
+                categoriasMenu.classList.toggle('collapsed');
+                // Mostrar u ocultar el submenú
+                submenu.style.display = submenu.style.display === 'none' ? 'block' : 'none';
+            });
+
+            categoriasMenu.addEventListener('click', function() {
+                // Alternar la clase "open" en el elemento del menú "Categorías"
+                categoriasMenu.classList.toggle('open');
+                submenu.style.display = categoriasMenu.classList.contains('open') ? 'block' : 'none';
+                });
+        </script>
     </body>
 </html>
