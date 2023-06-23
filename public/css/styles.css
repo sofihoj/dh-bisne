@@ -24,6 +24,7 @@ header {
 header nav ul {
     display: flex;
     justify-content: space-around;
+    padding-left: 0;
 }
 
 header li {
@@ -35,6 +36,11 @@ header li {
 header li a {
     color: #9A6C6C;
     text-decoration: none;
+}
+
+header nav a:hover,
+header .top-header a:hover{
+    color: #47453C;
 }
 
 header .top-header {
@@ -237,6 +243,28 @@ aside .top-sidebar {
 
 .bottom-sidebar i {
     padding-right: 10px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #967D71;
+    min-width: 170px;
+    box-shadow: 0px 8px 16px 0px #9A6C6C;
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: #EBEBEB;
+    padding: 5px 10px;
+    text-decoration: none;
+    display: block;
+    font-size: 15px;
+    text-transform: capitalize;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
 }
 
 
