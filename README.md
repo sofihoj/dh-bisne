@@ -7,6 +7,22 @@ Ofrecemos productos de decoración en macramé hechos a mano, como tapices, espe
 ## Público objetivo
 Dirigido principalmente a mujeres de todas las edades, pero también a hombres interesados en decoración. Queremos que expresen su estilo personal y creen espacios únicos y acogedores.
 
+## Quick Start
+
+Instalar dependencias:
+
+```console
+ npm install
+```
+
+Inicializar el servidor:
+
+```console
+ npm start
+```
+
+- Vizualizar en el servidor: http://localhost:4000
+
 ## Sitios de referencia
 - https://www.macramedecorbykaterina.com.au/
 - https://themacrameman.com.au/
