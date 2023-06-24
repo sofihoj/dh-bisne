@@ -81,8 +81,12 @@ form {
 }
 
 @media (max-width: 480px) {
+    form {
+        width: 90%;
+    }
     .form {
         padding: 20px;
+        margin: 20px 40px;
     }
 
     .form p {

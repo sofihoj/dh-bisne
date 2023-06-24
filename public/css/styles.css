@@ -433,7 +433,11 @@ aside .top-sidebar {
     }
 
     .banner {
-        height: 120px;
+        height: 90px;
+    }
+
+    .logo {
+        max-width: 80px;
     }
 
 }
