@@ -6,25 +6,23 @@
         <title>Bisne macrame | HOME</title>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
         <link rel="stylesheet" href="/css/styles.css">
-        <link rel="stylesheet" href="/css/login.css">
-        <link rel="stylesheet" href="/css/signup.css">
     </head>
     <body>
         <header>
             <div class="top-header">
-                <p><span><a href="login.html">Login</a></span>|<span><a href="signup.html">Sign up</a></span></p>
+                <p><span><a href="login">Login</a></span>|<span><a href="signup">Sign up</a></span></p>
             </div>
             <div class="medium-header">
                 <i class="fas fa-search"></i>
                 <i class="fas fa-bars" onclick="openNav()"></i>
                 <div class="logo">
-                    <a href="index.html"><img src="/img/logo.jpg" alt="Logo BISNE"></a>
+                    <a href="#"><img src="/img/logo.jpg" alt="Logo BISNE"></a>
                 </div>
-                <a href="productCart.html"><i class="fas fa-cart-shopping"></i></a>
+                <a href="productCart"><i class="fas fa-cart-shopping"></i></a>
             </div>
             <nav>
                 <ul>
-                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="index">Inicio</a></li>
                     <li class="dropdown"><a href="#" class="dropbtn">Categorías <i class="fas fa-chevron-down"></i></a>
                         <div class="dropdown-content">
                             <a href="#">Tapices</a>
@@ -53,7 +51,7 @@
                 </div>
                 <div class="main-sidebar">
                     <ul class="main-menu">
-                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="index">Inicio</a></li>
                         <li class="menu-item"><a href="#">Categorías <span class="arrow">&#9658;</span></a>
                             <ul class="submenu">
                                 <li><a href="#">Tapices</a></li>
@@ -71,40 +69,51 @@
                 </div>
                 <div class="bottom-sidebar">
                     <ul>
-                        <li><a href="productCart.html"><i class="fas fa-light fa-cart-shopping"></i>Carrito</a></li>
-                        <li><a href="login.html"><i class="fas fa-regular fa-arrow-right-to-bracket"></i>Login</a></li>
+                        <li><a href="productCart"><i class="fas fa-light fa-cart-shopping"></i>Carrito</a></li>
+                        <li><a href="login"><i class="fas fa-regular fa-arrow-right-to-bracket"></i>Login</a></li>
                     </ul>
                 </div>
             </aside>
-            <div class="main-header">
-                <p>Crea tu cuenta</p>
+            <div class="banner">
+                <img src="/img/home-banner.jpg" alt="">
             </div>
-            <div class="form">
-                <form>
-                    <div class="inputs">
-                        <div class="input-box">
-                            <input type="text" name="Name" id="formName" placeholder="Nombre" required>
-                        </div>
-                        <div class="input-box">
-                            <input type="text" name="Last name" id="formLastName" placeholder="Apellido" required>
-                        </div>
-                        <div class="input-box">
-                            <input type="email" id="email" name="email" placeholder="Email" required>
-                        </div>
-                        <div class="input-box">
-                            <input type="text" name="Phone number" id="formNumber" placeholder="Nro. de teléfono" required>
-                        </div>
-                        <div class="input-box">
-                            <input type="password" id="password" name="password" placeholder="Contraseña" required>
-                        </div>
-                        <div class="input-box">
-                            <input type="password" id="passwordRepeat" name="passwordRepeat" placeholder="Repetir contraseña" required>
-                        </div>
+            <section class="popular-categories">
+                <div class="main-bar">
+                    <p>Categorías populares</p>
+                </div>
+                <div class="img-popular">
+                    <article>
+                        <div></div>
+                        <p>Tapices</p>
+                    </article>
+                    <article>
+                        <div></div>
+                        <p>Espejos</p>
+                    </article>
+                    <article>
+                        <div></div>
+                        <p>Cuelga macetas</p>
+                    </article>
+                </div>
+            </section>
+            <section class="favorites-products">
+                <div class="main-bar">
+                    <p>Productos favoritos</p>
+                </div>
+                <div class="articles-container">
+                    <div class="fav-products">
+                        <article></article>
+                        <article></article>
+                        <article></article>
+                        <article></article>
+                        <article></article>
+                        <article></article>
+                        <article></article>
+                        <article></article>
                     </div>
-                    <button type="submit">Crear tu cuenta</button>
-                </form>
-                <p>Ya tenes tu cuenta? Ingresa <a href="login.html">aquí</a>.</p>
-            </div>
+                    <button type="button">Ver todos los productos</button>
+                </div>
+            </section>
         </main>
         <footer>
             <div class="social-media">
@@ -114,7 +123,7 @@
                 </ul>
             </div>
             <ul class="bottom-menu">
-                <li class="footer-menu"><a href="index.html">Inicio</a></li>
+                <li class="footer-menu"><a href="index">Inicio</a></li>
                 <li class="footer-menu"><a href="#">About</a></li>
                 <li class="footer-menu"><a href="#">Envíos</a></li>
                 <li class="footer-menu"><a href="#">Contacto</a></li>
@@ -124,31 +133,26 @@
             /*Set ancho de sidebar*/
             function openNav() {
                 document.getElementById("mySidebar").style.width = "300px";
-                document.getElementByTagName("body").style.marginLeft = "300px";
             }
 
             /*Set posición de sidebar*/
             function closeNav() {
-            document.getElementById("mySidebar").style.width = "0";
-            document.getElementById("main").style.marginLeft = "0";
+                document.getElementById("mySidebar").style.width = "0";
             }
 
             //Obtener del menú "Categorías" y su submenú
             const categoriasMenu = document.querySelector('.menu-item');
-            const submenu = document.querySelector('.submenu');
+            // const submenu = document.querySelector('.submenu');
 
             //Agrega un evento de clic al elemento del menú "Categorías"
             categoriasMenu.addEventListener('click', function() {
                 // Alternar la clase "collapsed" en el elemento del menú "Categorías"
                 categoriasMenu.classList.toggle('collapsed');
-                // Mostrar u ocultar el submenú
-                submenu.style.display = submenu.style.display === 'none' ? 'block' : 'none';
             });
 
             categoriasMenu.addEventListener('click', function() {
                 // Alternar la clase "open" en el elemento del menú "Categorías"
                 categoriasMenu.classList.toggle('open');
-                submenu.style.display = categoriasMenu.classList.contains('open') ? 'block' : 'none';
                 });
         </script>
     </body>
