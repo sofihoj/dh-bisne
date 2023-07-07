@@ -20,19 +20,15 @@ Instalar dependencias:
  npm install
 ```
 
+- Cambiar el nombre del archivo .env.example a .env. <br>
+De no cambiar el número de puerto, se va a visualizar en el servidor: http://localhost:4000. <br>
+Sino elegir el número de puerto para visualizar.
+
 Inicializar el servidor:
 
 ```console
  npm start
 ```
-
-- Cambiar el nombre del archivo .env.example a .env
-
-De no cambiar el número de puerto:
-
-- Vizualizar en el servidor: http://localhost:4000
-
-Sino elegir el número de puerto para visualizar.
 
 ## Sitios de referencia
 - https://www.macramedecorbykaterina.com.au/
