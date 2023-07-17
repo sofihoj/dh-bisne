@@ -8,6 +8,9 @@ const controller = {
     login: (req, res) => {
         res.render('users/login')
     },
+    newProducts: (req, res) => {
+        res.render('newProducts')
+    },
     productCart: (req, res) => {
         res.render('productCart')
     },
