@@ -16,6 +16,9 @@ const controller = {
     },
     productDetail: (req, res) => {
         res.render('productDetail')
+    },
+    categories: (req, res) => {
+        res.render('categories')
     }
 }
 
