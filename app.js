@@ -4,8 +4,7 @@ const mainRoutes = require('./routes/mainRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const app = express();
 require('dotenv').config();
-const PORT = 4000;
-//const PORT = parseInt(process.env.PORT);
+const PORT = parseInt(process.env.PORT);
 
 app.use(express.urlencoded({extended:false}));
 
