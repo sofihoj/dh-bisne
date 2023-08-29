@@ -2,21 +2,6 @@ header nav {
     height: 40px;
 }
 
-.main-header {
-    background-color: #967D71;
-    color: #ebebeb;
-    padding: 1px;
-    display: flex;
-    justify-content: center;
-}
-
-.main-header p {
-    margin: 0;
-    padding: 6px 0;
-    text-transform: uppercase;
-    font-size: 15px;
-}
-
 form {
     display: flex;
     flex-direction: column;
@@ -47,14 +32,25 @@ form {
     color: #47453C;
     font-size: 15px;
     padding-bottom: 5px;
+    margin-top: 20px;
 }
 
 .form-group input {
     border: none;
     border-radius: 3px;
     height: 30px;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
     min-width: 150px;
+}
+
+.text-error {
+    text-align: end;
+    font-size: 13px;
+    color: red;
+}
+
+.form-group .input-error {
+    border: red 1px solid;
 }
 
 .form button {
@@ -62,7 +58,7 @@ form {
     color: #ebebeb;
     border: none;
     border-radius: 5px;
-    margin-top: 10px;
+    margin-top: 20px;
     padding: 15px 25px;
     text-transform: uppercase;
 }
@@ -78,6 +74,23 @@ form {
 
 .form p a:hover {
     font-weight: bold;
+}
+
+#rememberUser {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#remember_user{
+    height: 14px;
+    min-width: 20px;
+}
+
+#rememberUser label {
+    margin-top: 0;
+    margin-left: 2px;
 }
 
 @media (max-width: 480px) {

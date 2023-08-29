@@ -12,63 +12,76 @@
     <body>
         <%- include('../partials/header.ejs')%>
         <main>
-            <aside id="mySidebar">
-                <div class="top-sidebar">
-                    <div class="search-input">
-                        <input type="text" placeholder="Buscar">
-                    </div>
-                    <div class="close-icon">
-                        <i class="fas fa-xmark" onclick="closeNav()"></i>
-                    </div>
-                </div>
-                <div class="main-sidebar">
-                    <ul class="main-menu">
-                        <li><a href="index">Inicio</a></li>
-                        <li class="menu-item"><a href="#">Categorías <span class="arrow">&#9658;</span></a>
-                            <ul class="submenu">
-                                <li><a href="#">Tapices</a></li>
-                                <li><a href="#">Espejos </a></li>
-                                <li><a href="#">Cuelga macetas</a></li>
-                                <li><a href="#">Sujeta cortinas</a></li>
-                                <li><a href="#">Varios</a></li>
-                                <li><a href="#">Cursos</a></li>
-                              </ul>
-                        </li>
-                        <li><a href="#">Sobre nosotros</a></li>
-                        <li><a href="#">Envíos</a></li>
-                        <li><a href="#">Contacto</a></li>
-                    </ul>
-                </div>
-                <div class="bottom-sidebar">
-                    <ul>
-                        <li><a href="productCart"><i class="fas fa-light fa-cart-shopping"></i>Carrito</a></li>
-                        <li><a href="login"><i class="fas fa-regular fa-arrow-right-to-bracket"></i>Login</a></li>
-                    </ul>
-                </div>
-            </aside>
+            <%- include('../partials/sidebar.ejs')%>
             <div class="main-header">
                 <p>Crea tu cuenta</p>
             </div>
             <div class="form">
-                <form>
+                <form action="/users/signup" method="POST">
                     <div class="inputs">
                         <div class="input-box">
-                            <input type="text" name="Name" id="formName" placeholder="Nombre" required>
+                            <input type="text" name="name" id="formName" placeholder="<%= locals.oldData ? oldData.name : "Nombre" %>" class=<%= locals.errors && errors.name ? 'input-error' : null  %> value="<%= locals.oldData ? oldData.name : null %>">
+                            <% if (locals.errors && errors.name) { %>
+                                <div class="text-error">
+                                    <%= errors.name.msg %>
+                                </div>
+                            <% } %>
                         </div>
                         <div class="input-box">
-                            <input type="text" name="Last name" id="formLastName" placeholder="Apellido" required>
+                            <input type="text" name="lastName" id="formLastName" placeholder="<%= locals.oldData ? oldData.lastName : "Apellido" %>" class=<%= locals.errors && errors.lastName ? 'input-error' : null  %> value="<%= locals.oldData ? oldData.lastName : null %>">
+                            <% if (locals.errors && errors.lastName) { %>
+                                <div class="text-error">
+                                    <%= errors.lastName.msg %>
+                                </div>
+                            <% } %>
                         </div>
                         <div class="input-box">
-                            <input type="email" id="email" name="email" placeholder="Email" required>
+                            <input type="email" id="email" name="email" placeholder="<%= locals.oldData ? oldData.email : "Email" %>" class=<%= locals.errors && errors.email ? 'input-error' : null  %> value="<%= locals.oldData ? oldData.email : null %>">
+                            <% if (locals.errors && errors.email) { %>
+                                <div class="text-error">
+                                    <%= errors.email.msg %>
+                                </div>
+                            <% } %>
                         </div>
                         <div class="input-box">
-                            <input type="text" name="Phone number" id="formNumber" placeholder="Nro. de teléfono" required>
+                            <input type="text" name="phoneNumber" id="formNumber" placeholder="<%= locals.oldData ? oldData.phoneNumber : "Nro. de teléfono" %>" class=<%= locals.errors && errors.phoneNumber ? 'input-error' : null  %> value="<%= locals.oldData ? oldData.phoneNumber : null %>">
+                            <% if (locals.errors && errors.phoneNumber) { %>
+                                <div class="text-error">
+                                    <%= errors.phoneNumber.msg %>
+                                </div>
+                            <% } %>
                         </div>
                         <div class="input-box">
-                            <input type="password" id="password" name="password" placeholder="Contraseña" required>
+                            <input type="text" name="city" id="city" placeholder="<%= locals.oldData ? oldData.city : "Ciudad" %>" class=<%= locals.errors && errors.city ? 'input-error' : null  %> value="<%= locals.oldData ? oldData.city : null %>">
+                            <% if (locals.errors && errors.city) { %>
+                                <div class="text-error">
+                                    <%= errors.city.msg %>
+                                </div>
+                            <% } %>
                         </div>
                         <div class="input-box">
-                            <input type="password" id="passwordRepeat" name="passwordRepeat" placeholder="Repetir contraseña" required>
+                            <input type="text" name="address" id="address" placeholder="<%= locals.oldData ? oldData.address : "Dirección" %>" class=<%= locals.errors && errors.address ? 'input-error' : null  %> value="<%= locals.oldData ? oldData.address : null %>">
+                            <% if (locals.errors && errors.address) { %>
+                                <div class="text-error">
+                                    <%= errors.address.msg %>
+                                </div>
+                            <% } %>
+                        </div>
+                        <div class="input-box">
+                            <input type="password" id="password" name="password" placeholder="<%= locals.oldData ? '' : "Contraseña" %>" class=<%= locals.errors && errors.password ? 'input-error' : null  %> value="<%= locals.oldData ? oldData.password : null %>">
+                            <% if (locals.errors && errors.password) { %>
+                                <div class="text-error">
+                                    <%= errors.password.msg %>
+                                </div>
+                            <% } %>
+                        </div>
+                        <div class="input-box">
+                            <input type="password" id="passwordRepeat" name="passwordRepeat" placeholder="<%= locals.oldData ? '' : "Repetir contraseña" %>" class=<%= locals.errors && errors.passwordRepeat ? 'input-error' : null  %> value="<%= locals.oldData ? oldData.passwordRepeat : null %>">
+                            <% if (locals.errors && errors.passwordRepeat) { %>
+                                <div class="text-error">
+                                    <%= errors.passwordRepeat.msg %>
+                                </div>
+                            <% } %>
                         </div>
                     </div>
                     <button type="submit">Crear tu cuenta</button>

@@ -11,52 +11,33 @@
     <body>
         <%- include('../partials/header.ejs')%>
         <main>
-            <aside id="mySidebar">
-                <div class="top-sidebar">
-                    <div class="search-input">
-                        <input type="text" placeholder="Buscar">
-                    </div>
-                    <div class="close-icon">
-                        <i class="fas fa-xmark" onclick="closeNav()"></i>
-                    </div>
-                </div>
-                <div class="main-sidebar">
-                    <ul class="main-menu">
-                        <li><a href="index">Inicio</a></li>
-                        <li class="menu-item"><a href="#">Categorías <span class="arrow">&#9658;</span></a>
-                            <ul class="submenu">
-                                <li><a href="#">Tapices</a></li>
-                                <li><a href="#">Espejos </a></li>
-                                <li><a href="#">Cuelga macetas</a></li>
-                                <li><a href="#">Sujeta cortinas</a></li>
-                                <li><a href="#">Varios</a></li>
-                                <li><a href="#">Cursos</a></li>
-                              </ul>
-                        </li>
-                        <li><a href="#">Sobre nosotros</a></li>
-                        <li><a href="#">Envíos</a></li>
-                        <li><a href="#">Contacto</a></li>
-                    </ul>
-                </div>
-                <div class="bottom-sidebar">
-                    <ul>
-                        <li><a href="productCart"><i class="fas fa-light fa-cart-shopping"></i>Carrito</a></li>
-                        <li><a href="login"><i class="fas fa-regular fa-arrow-right-to-bracket"></i>Login</a></li>
-                    </ul>
-                </div>
-            </aside>
+            <%- include('../partials/sidebar.ejs')%>
             <div class="main-header">
                 <p>Iniciar sesión</p>
             </div>
             <div class="form">
-                <form>
+                <form action="/users/login" method="POST">
                     <div class="form-group">
                         <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" required>
+                        <input type="email" id="email" name="email" class=<%= locals.errors && errors.email ? 'input-error' : null  %> required>
+                        <% if (locals.errors && errors.email) { %>
+                            <div class="text-error">
+                                <%= errors.email.msg %>
+                            </div>
+                        <% } %>
                     </div>
                     <div class="form-group">
                         <label for="password">Contraseña:</label>
-                        <input type="password" id="password" name="password" required>
+                        <input type="password" id="password" name="password" class=<%= locals.errors && errors.password ? 'input-error' : null  %> required>
+                        <% if (locals.errors && errors.password) { %>
+                            <div class="text-error">
+                                <%= errors.password.msg %>
+                            </div>
+                        <% } %>
+                    </div>
+                    <div class="form-group" id="rememberUser">
+                        <input type="checkbox" id="remember_user" name="remember_user" />
+                        <label for="remember_user">Recordar usuario</label>
                     </div>
                     <button type="submit">Iniciar sesión</button>
                 </form>
