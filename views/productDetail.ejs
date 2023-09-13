@@ -14,12 +14,12 @@
         <main>
             <%- include('./partials/sidebar.ejs')%>
             <section class="main-header">
-                <p><%= formatear(producto.categoria) %></p>
+                <p><%= categoria %></p>
             </section>
             <div class="cont">
                 <section class="photos">
                     <div class="caja">
-                        <img src="/img/<%= producto.categoria %>/<%= producto.imagen %>" alt="">
+                        <img src="/img/<%= formatearEspacio(categoria) %>/<%= formatearEspacio(producto.imagen) %>" alt="">
                     </div>
                 </section>
                 <section class="description">
@@ -30,6 +30,7 @@
                     <div class="funcionalidades">
                         <section>
                             <h2>$<%= producto.precio %></h2>
+                            <h2><%= producto.tamanio ? "Tamaño: " + producto.tamanio.diametro + " cm": ''  %></h2>
                             <div class="cantidadProductos">
                                 <button id="menos">-</button>
                                 <input type="number" value="1">

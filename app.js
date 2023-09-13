@@ -11,8 +11,8 @@ const userLoggedMiddleware = require('./middlewares/userLoggedMiddleware');
 const restrictToAdmin = require('./middlewares/restrictAdminMiddleware')
 
 //Rutas Usuario
-const usuariosRouter = require('./routes/usuariosRouter');
-app.use('/usuarios', usuariosRouter);
+// const usuariosRouter = require('./routes/usuariosRouter');
+// app.use('/usuarios', usuariosRouter);
 
 
 const app = express();

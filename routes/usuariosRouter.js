@@ -4,8 +4,8 @@ var usuaroisController = require("../controllers/usuariosController")
 
 // creacion
 
-router.get("/crear",usuariosController.crear);
-router.post("/crear",usuariosController.guardado);
+// router.get("/crear",usuariosController.crear);
+// router.post("/crear",usuariosController.guardado);
 
 
 module.exports = router;

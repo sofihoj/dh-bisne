@@ -34,18 +34,17 @@ module.exports = (sequelize, dataTypes) => {
             allowNull: false
         },
         direccion:{
-            type: dataTypes.VARCHAR,
+            type: dataTypes.STRING(200),
             allowNull: false
         },
         ciudad:{
-            type: dataTypes.VARCHAR,
+            type: dataTypes.STRING(100),
             allowNull: false
         },
-        tipo_usuario:{
+        tipo_usuario_id:{
             type: dataTypes.INTEGER,
             primaryKey: false,
             foreignKey: true,
-            autoIncrement: true,            
             allowNull: false
         },
         created_at: {
@@ -65,11 +64,10 @@ module.exports = (sequelize, dataTypes) => {
     const Usuario = sequelize.define(alias, cols, config);
 
     Usuario.associate = models => {
-        Usuario.belongsTo(models.TipoUsuario, {
-            as: "tipo_usuarios",
+        Usuario.belongsTo(models.tipoUsuario, {
+            as: "tipo_usuario",
             foreignKey: "tipo_usuarios_id"
         });
-        
     };
 
     return Usuario;
