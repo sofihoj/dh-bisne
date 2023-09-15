@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const { validationResult } = require('express-validator')
+const db = require('../database/models');
 
 
 const User = require('../models/User');
@@ -111,7 +112,35 @@ const usersController = {
         res.clearCookie('userEmail');
         req.session.destroy();
         return res.redirect('/');
-    }
+    },
+
+//Isabel -- las de created, update, delete las debo incluir?
+    guardado: function (req,res) {  
+    db.Usuario.create({
+        nombre: req.body.nombre,
+        apellido: req.body.apellido,
+        email: req.body.email,
+        contraseña: req.body.contraseña,
+        telefono: req.body.telefono,
+        direccion: req.body.direccion,      
+        ciudad: req.body.ciudad,
+        tipo_usuario_id: req.body.tipo_usuario_id,
+        created_at: req.body.created_at,    
+        updated_at: req.body.updated_at,  
+        delete_at: req.body.delete_at  
+
+    });
+    res.redirect("users/profile");
+    },
+    detalle: function(req, res){
+        db.Usuario.findByPk(req.params.id, {
+            include: [{association: "tipoUsuario"}]
+        })
+        .then(function(usuario){
+            res.render("profile", {usario:usuario});
+        })
+    },
+
 }
 
 module.exports = usersController;

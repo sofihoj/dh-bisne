@@ -15,5 +15,9 @@ router.get('/profile', authMiddleware, usersController.profile)
 // router.get('/profile/info/', usersController.edit)
 router.get('/logout', usersController.logout)
 
+//Isabel 
+router.get('/signup', guestMiddleware, usersController.guardado)
+router.get('/signup', guestMiddleware, usersController.detalle)
+
 
 module.exports = router;
