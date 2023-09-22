@@ -2,7 +2,6 @@ const bcrypt = require('bcryptjs');
 const { validationResult } = require('express-validator')
 const db = require('../database/models');
 
-
 const User = require('../models/User');
 
 const usersController = {
@@ -18,7 +17,7 @@ const usersController = {
                 oldData: req.body
             })
         }
-        let existingUser = User.findByField('email', req.body.email);
+        const existingUser = db.Usuario.findOne({ where: { email:req.body.email } });
         if (existingUser) {
             return res.render('users/signup', {
                 errors: {
@@ -29,14 +28,16 @@ const usersController = {
                 oldData: req.body
             })
         }
-        let userToCreate = {
-            ...req.body,
-            category: "user",
-            password: bcrypt.hashSync(req.body.password, 10)
-        }
-
-        let userCreated = User.create(userToCreate);
-
+        db.Usuario.create({
+            nombre: req.body.name,
+            apellido: req.body.lastName,
+            email: req.body.email,
+            contraseña: bcrypt.hashSync(password, 10),
+            telefono: req.body.phoneNumber,
+            direccion: req.body.address,      
+            ciudad: req.body.city,
+            tipo_usuario_id:2,
+        })
 		return res.redirect('/users/login');
     },
     login: (req, res) => {
@@ -50,7 +51,17 @@ const usersController = {
                 oldData: req.body
             })
         }
-        let userToLogin = User.findByField('email', req.body.email);
+        let userToLogin = db.Usuario.findOne({ where: { email:req.body.email } });
+        if (!userToLogin) {
+            return res.render('users/login', {
+                errors: {
+                    email: {
+                        msg: 'El usuario no se encuentra registrado'
+                    }
+                },
+                oldData: req.body
+            })
+        }
 		if(userToLogin) {
 			let isOkThePassword = bcrypt.compareSync(req.body.password, userToLogin.password);
 			if (isOkThePassword) {
@@ -113,34 +124,7 @@ const usersController = {
         req.session.destroy();
         return res.redirect('/');
     },
-
-//Isabel -- las de created, update, delete las debo incluir?
-    guardado: function (req,res) {  
-    db.Usuario.create({
-        nombre: req.body.nombre,
-        apellido: req.body.apellido,
-        email: req.body.email,
-        contraseña: req.body.contraseña,
-        telefono: req.body.telefono,
-        direccion: req.body.direccion,      
-        ciudad: req.body.ciudad,
-        tipo_usuario_id: req.body.tipo_usuario_id,
-        created_at: req.body.created_at,    
-        updated_at: req.body.updated_at,  
-        delete_at: req.body.delete_at  
-
-    });
-    res.redirect("users/profile");
-    },
-    detalle: function(req, res){
-        db.Usuario.findByPk(req.params.id, {
-            include: [{association: "tipoUsuario"}]
-        })
-        .then(function(usuario){
-            res.render("profile", {usario:usuario});
-        })
-    },
-
+  
 }
 
 module.exports = usersController;

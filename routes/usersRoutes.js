@@ -16,8 +16,7 @@ router.get('/profile', authMiddleware, usersController.profile)
 router.get('/logout', usersController.logout)
 
 //Isabel 
-router.get('/signup', guestMiddleware, usersController.guardado)
-router.get('/signup', guestMiddleware, usersController.detalle)
+router.post('/profile', guestMiddleware, usersController.detalle)
 
 
 module.exports = router;
