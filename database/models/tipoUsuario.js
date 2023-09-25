@@ -1,36 +1,31 @@
 module.exports = (sequelize, dataTypes) => {
+    let alias = "TipoUsuario";
 
-    let alias = "tipoUsuario";
-    
-    let config= {
-        tableName: "tipo_usuarios",
-        timestamps: true
+    let config = {
+        tableName: "tipo_usuario"
     };
-    
-    let cols= {
+
+    let cols = {
         id: {
-            type: dataTypes.INTEGER,
+            type: dataTypes.INTEGER(10).UNSIGNED,
             primaryKey: true,
-            autoIncrement: true
+            autoIncrement: true,
+            allowNull: false
         },
-        tipo:{
-            type: dataTypes.STRING,
+        categoria: {
+            type: dataTypes.STRING(100),
             allowNull: false
         }
     };
-    
-    const tipoUsuario = sequelize.define(alias, cols, config);
-    
-        tipoUsuario.associate = models => {
-            tipoUsuario.hasMany(models.Usuario, {
-                as: "usuarios",
-                foreignKey: "usuario_id"
-            });
-            
-        };
-    
-return tipoUsuario;
+
+    const TipoUsuario = sequelize.define(alias, cols, config);
+
+    TipoUsuario.associate = models => {
+        TipoUsuario.hasMany(models.Usuario, {
+            as: 'tipo_usuario',
+            foreignKey: 'tipo_usuario_id'
+        });
+    };
+
+    return TipoUsuario;
 }
-    
-    
-    

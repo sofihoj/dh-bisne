@@ -1,9 +1,8 @@
 module.exports = (sequelize, dataTypes) => {
-    let alias = "Detalle_compras";
+    let alias = "DetalleCompra";
 
     let config = {
-        tableName: "detalle_compras",
-        timestamps: false
+        tableName: "detalle_compra"
     };
 
     let cols = {
@@ -13,38 +12,37 @@ module.exports = (sequelize, dataTypes) => {
             autoIncrement: true,
             allowNull: false
         },
-        cantidad: {
-            type: dataTypes.INTEGER,
-            allowNull: false
-        },
-        subtotal:{
-            type: dataTypes.FLOAT(10, 2),
+        producto_id: {
+            type: dataTypes.INTEGER(10).UNSIGNED,
             allowNull: false
         },
         compra_id: {
             type: dataTypes.INTEGER(10).UNSIGNED,
-            foreignKey: true,
-            allowNull: true
+            allowNull: false
         },
-        producto_id: {
+        cantidad: {
             type: dataTypes.INTEGER(10).UNSIGNED,
-            foreignKey: true,
-            allowNull: true
-        }
+            allowNull: false
+        },
+        subtotal: {
+            type: dataTypes.FLOAT(11, 3),
+            allowNull: false
+        },
     };
 
-    const Detalle_compras = sequelize.define(alias, cols, config);
+    const DetalleCompra = sequelize.define(alias, cols, config);
 
-    Detalle_compras.associate = models => {
-        Detalle_compras.belongsTo(models.Compras, {
-            as: 'compras',
+    DetalleCompra.associate = models => {
+        DetalleCompra.belongsTo(models.Compra, {
+            as: 'compra',
             foreignKey: 'compra_id'
         });
-        Detalle_compras.hasMany(models.Producto, {
+
+        DetalleCompra.belongsTo(models.Producto, {
             as: 'productos',
-            foreignKey: 'productos_id'
+            foreignKey: 'producto_id'
         });
     };
 
-    return Detalle_compras;
+    return DetalleCompra;
 }

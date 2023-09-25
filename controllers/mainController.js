@@ -29,7 +29,7 @@ const controller = {
                     })
                         .then(producto => {
                             if (producto) {
-                                res.render('productDetail', { producto, categoria: producto.categoria.categoria, formatearEspacio });
+                                res.render('productDetail', { producto, categoria: producto.categoria.categoria, formatearGuion, formatearEspacio });
                             } else {
                                 res.send(`Producto  ${req.params.product} inexistente`);
                             }
@@ -50,7 +50,7 @@ const controller = {
         })
             .then(categoria => {
                 if (categoria) {
-                    res.render('categories', { producto: categoria.productos, categoria, categoriaSeleccionada, formatearEspacio });
+                    res.render('categories', { producto: categoria.productos, categoria, categoriaSeleccionada, formatearGuion, formatearEspacio });
                 } else {
                     res.send('Categoría inválida');
                 }

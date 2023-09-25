@@ -1,9 +1,8 @@
 module.exports = (sequelize, dataTypes) => {
-    let alias = "Compras";
+    let alias = "Compra";
 
     let config = {
-        tableName: "compras",
-        timestamps: false
+        tableName: "compras"
     };
 
     let cols = {
@@ -17,29 +16,29 @@ module.exports = (sequelize, dataTypes) => {
             type: dataTypes.DATE,
             allowNull: false
         },
-        precio_total:{
-            type: dataTypes.FLOAT(10, 2),
+        precio_total: {
+            type: dataTypes.FLOAT(11, 3) ,
             allowNull: false
         },
         usuario_id: {
             type: dataTypes.INTEGER(10).UNSIGNED,
-            foreignKey: true,
-            allowNull: true
+            allowNull: false
         }
     };
 
-    const Compras = sequelize.define(alias, cols, config);
+    const Compra = sequelize.define(alias, cols, config);
 
-    Compras.associate = models => {
-        Compras.belongsTo(models.Usuario, {
+    Compra.associate = models => {
+        Compra.belongsTo(models.Usuario, {
             as: 'usuarios',
             foreignKey: 'usuario_id'
         });
-        Compras.hasMany(models.Detalle_compras, {
-            as: 'detalle_compras',
-            foreignKey: 'detalle_compras_id'
+
+        Compra.hasMany(models.DetalleCompra, {
+            as: 'detallesCompra',
+            foreignKey: 'compra_id'
         });
     };
 
-    return Compras;
+    return Compra;
 }

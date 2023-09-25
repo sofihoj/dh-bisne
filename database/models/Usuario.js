@@ -1,72 +1,68 @@
 module.exports = (sequelize, dataTypes) => {
-
     let alias = "Usuario";
-    
-    let config= {
+
+    let config = {
         tableName: "usuarios",
-        timestamps: true
-    }
+        timestamps: true,
+        underscored: true,
+        createdAt: 'created_at',
+        updatedAt: 'updated_at',
+        deletedAt: false
+    };
 
     let cols = {
-        id:{
-            type: dataTypes.INTEGER,
+        id: {
+            type: dataTypes.INTEGER(10).UNSIGNED,
             primaryKey: true,
-            autoIncrement: true
-        },
-        nombre:{
-            type: dataTypes.STRING,
+            autoIncrement: true,
             allowNull: false
         },
-        apellido:{
-            type: dataTypes.STRING,
-            allowNull: false
-        },
-        email:{
-            type: dataTypes.STRING,
-            allowNull: false
-        },
-        contraseña:{
-            type: dataTypes.STRING,
-            allowNull: false
-        },
-        telefono:{
-            type: dataTypes.INTEGER,
-            allowNull: false
-        },
-        direccion:{
-            type: dataTypes.STRING(200),
-            allowNull: false
-        },
-        ciudad:{
+        nombre: {
             type: dataTypes.STRING(100),
             allowNull: false
         },
-        tipo_usuario_id:{
-            type: dataTypes.INTEGER,
-            primaryKey: false,
-            foreignKey: true,
+        apellido: {
+            type: dataTypes.STRING(100),
             allowNull: false
         },
-        created_at: {
-            type: dataTypes.DATE,
+        email: {
+            type: dataTypes.STRING(200),
             allowNull: false
         },
-        updated_at :{
-            type: dataTypes.DATE,
+        contraseña: {
+            type: dataTypes.STRING(100),
             allowNull: false
         },
-        delete_at :{
-            type: dataTypes.DATE,
+        telefono: {
+            type: dataTypes.INTEGER(11),
+            allowNull: true
+        },
+        direccion: {
+            type: dataTypes.STRING(200),
             allowNull: false
         },
+        ciudad: {
+            type: dataTypes.STRING(100),
+            allowNull: false
+        },
+        tipo_usuario_id: {
+            type: dataTypes.INTEGER(10).UNSIGNED,
+            allowNull: false
+        }
     };
 
     const Usuario = sequelize.define(alias, cols, config);
 
     Usuario.associate = models => {
-        Usuario.belongsTo(models.tipoUsuario, {
-            as: "tipo_usuario",
-            foreignKey: "tipo_usuarios_id"
+        Usuario.belongsTo(models.TipoUsuario, {
+            as: 'tipo_usuario',
+            foreignKey: 'tipo_usuario_id'
+        });
+
+        Usuario.belongsToMany(models.Compra, {
+            as: 'compras',
+            through: 'DetalleCompra',
+            foreignKey: 'usuario_id'
         });
     };
 
