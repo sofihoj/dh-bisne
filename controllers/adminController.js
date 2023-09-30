@@ -70,11 +70,12 @@ const controller = {
     delete:  (req, res) => {
         const nombre = req.params.nombre;
         db.Producto.destroy({ where: { nombre }, force: true })
-        .then(() => {
+            .then(() => {
             return res.redirect('/administrar')
         })
-        .catch(error => res.send(error))
+            .catch(error => res.send(error))
     },
+  
     edit: async (req, res) => {
         try {
             const nombre = req.params.nombre;

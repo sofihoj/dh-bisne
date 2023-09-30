@@ -116,6 +116,18 @@ const usersController = {
             return res.status(400).send('Categoría de usuario desconocida');
         }
     },
+    
+    //Isabel
+    delete: function(req,res){
+        db.Usuario.destroy({
+            where:{
+                id:req.params.id
+            }
+        })
+        return res.redirect("/profile")
+    .catch(error => res.send(error))
+    },
+
     // edit: (req, res) => {
     //     res.render('users/editProfile');
     // },
