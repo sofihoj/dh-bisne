@@ -1,4 +1,4 @@
-module.exports = (sequelize, dataTypes) => {
+Smodule.exports = (sequelize, dataTypes) => {
     let alias = "TipoUsuario";
 
     let config = {

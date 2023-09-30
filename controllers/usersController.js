@@ -118,6 +118,37 @@ const usersController = {
     },
     
     //Isabel
+   // profile: (req, res) => {
+    //     const userCategory = req.session.userLogged.category;
+    //        if (userCategory === 'admin') {
+    //          return res.redirect('/administrar');
+    //    } else if (userCategory === 'user') {
+    //      return res.render('users/profile', {
+    //        user: req.session.userLogged
+    //    });
+    // } else {
+    //    return res.status(400).send('Categoría de usuario desconocida');
+    //}
+    //},
+    // edit: (req, res) => {
+    //     res.render('users/editProfile');
+    // },
+    edit: async (req, res) => {
+        try {
+            const nombre = req.params.nombre;
+            const usuario = await db.Usuario.findOne({ where: { nombre } }, {include: ['categoria']})
+            const tipoUsuario = await db.tipoUsuario.findAll();
+            console.log(usuario)
+            if (!usuario) {
+                return res.status(404).send('Usuario no encontrado');
+            }
+
+            return res.render('users/editProfile', {usuario});
+        } catch {
+            console.error('Error:', error);
+            res.status(500).send('Error interno del servidor');
+        }
+    },
     delete: function(req,res){
         db.Usuario.destroy({
             where:{
@@ -125,12 +156,9 @@ const usersController = {
             }
         })
         return res.redirect("/profile")
-    .catch(error => res.send(error))
+        .catch(error => res.send(error))
     },
 
-    // edit: (req, res) => {
-    //     res.render('users/editProfile');
-    // },
     logout: (req, res) => {
         res.clearCookie('userEmail');
         req.session.destroy();
