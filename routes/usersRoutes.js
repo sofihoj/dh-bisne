@@ -14,5 +14,6 @@ router.post('/login', validationsLogIn, usersController.processLogin)
 router.get('/profile', authMiddleware, usersController.profile)
 // router.get('/profile/info/', usersController.edit)
 router.get('/logout', usersController.logout)
+router.get('/delete/:nombre', usersController.delete);
 
 module.exports = router;

@@ -103,33 +103,32 @@ const usersController = {
     //         user: req.session.userLogged
     //     });
     // },
-    profile: (req, res) => {
-        const userCategory = req.session.userLogged.category;
-
-        if (userCategory === 'admin') {
-            return res.redirect('/administrar');
-        } else if (userCategory === 'user') {
-            return res.render('users/profile', {
-                user: req.session.userLogged
-            });
-        } else {
-            return res.status(400).send('Categoría de usuario desconocida');
-        }
-    },
+    //profile: (req, res) => {
+    //    const userCategory = req.session.userLogged.category;
+    //    if (userCategory === 'admin') {
+    //         return res.redirect('/administrar');
+    //    } else if (userCategory === 'user') {
+    //        return res.render('users/profile', {
+    //            user: req.session.userLogged
+    //      });
+    //    } else {
+    //        return res.status(400).send('Categoría de usuario desconocida');
+    //  }
+    // },
     
     //Isabel
-   // profile: (req, res) => {
-    //     const userCategory = req.session.userLogged.category;
-    //        if (userCategory === 'admin') {
-    //          return res.redirect('/administrar');
-    //    } else if (userCategory === 'user') {
-    //      return res.render('users/profile', {
-    //        user: req.session.userLogged
-    //    });
-    // } else {
-    //    return res.status(400).send('Categoría de usuario desconocida');
-    //}
-    //},
+    profile: (req, res) => {
+        const userCategory = req.session.userLogged.tipo_usuario_id;
+            if (userCategory === 1) {
+                return res.redirect('/administrar');
+            } else if (userCategory === 2) {
+                return res.render('users/profile', {
+                user: req.session.userLogged
+            });
+            } else {
+                return res.status(400).send('Categoría de usuario desconocida');
+        }
+    },
     // edit: (req, res) => {
     //     res.render('users/editProfile');
     // },
@@ -152,7 +151,7 @@ const usersController = {
     delete: function(req,res){
         db.Usuario.destroy({
             where:{
-                id:req.params.id
+                id:req.params.nombre
             }
         })
         return res.redirect("/profile")
