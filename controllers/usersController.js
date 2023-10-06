@@ -51,19 +51,19 @@ const usersController = {
                 oldData: req.body
             })
         }
-        let userToLogin = db.Usuario.findOne({ where: { email:req.body.email } });
-        if (!userToLogin) {
-            return res.render('users/login', {
-                errors: {
-                    email: {
-                        msg: 'El usuario no se encuentra registrado'
-                    }
-                },
-                oldData: req.body
-            })
-        }
-		if(userToLogin) {
-			let isOkThePassword = bcrypt.compareSync(req.body.password, userToLogin.password);
+        let userToLogin = db.Usuario.findOne({ where: { email:req.body.email } })
+        .then(userToLogin => {
+            if (!userToLogin) {
+                return res.render('users/login', {
+                    errors: {
+                        email: {
+                            msg: 'Usuario no registrado'
+                        }
+                    },
+                });
+            }
+
+			let isOkThePassword = bcrypt.compareSync(req.body.password, userToLogin.contraseña);
 			if (isOkThePassword) {
 				delete userToLogin.password; //para evitar que me traiga la password a la session, por seguridad
 				req.session.userLogged = userToLogin; //guardo la sesión del usuario
@@ -72,7 +72,7 @@ const usersController = {
 					res.cookie('userEmail', req.body.email, { maxAge: (1000 * 60) * 60 })
 				}
 
-				if (userToLogin.category === 'admin') {
+				if (userToLogin.tipo_usuario_id === 1) {
                     return res.redirect('/administrar');
                 } else {
                     return res.redirect('/users/profile');
@@ -87,16 +87,7 @@ const usersController = {
                     oldData: req.body
                 });
             }
-		} else {
-
-            return res.render('users/login', {
-                errors: {
-                    email: {
-                        msg: 'Usuario no registrado'
-                    }
-                },
-            });
-        }
+		})
     },
     // profile: (req, res) => {
     //     res.render('users/profile', {
