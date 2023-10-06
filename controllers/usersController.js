@@ -51,7 +51,7 @@ const usersController = {
                 oldData: req.body
             })
         }
-        let userToLogin = db.Usuario.findOne({ where: { email:req.body.email } })
+        db.Usuario.findOne({ where: { email:req.body.email } })
         .then(userToLogin => {
             if (!userToLogin) {
                 return res.render('users/login', {
