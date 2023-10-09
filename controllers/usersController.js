@@ -120,10 +120,10 @@ const usersController = {
                 return res.status(400).send('Categoría de usuario desconocida');
         }
     },
-    // edit: (req, res) => {
-    //     res.render('users/editProfile');
-    // },
-    edit: async (req, res) => {
+    edit: (req, res) => {
+        res.render('users/editProfile', { user: req.session.userLogged });
+    },
+    update: async (req, res) => {
         try {
             const nombre = req.params.nombre;
             const usuario = await db.Usuario.findOne({ where: { nombre } }, {include: ['categoria']})
@@ -137,6 +137,44 @@ const usersController = {
         } catch {
             console.error('Error:', error);
             res.status(500).send('Error interno del servidor');
+        }
+    },
+    changePassword: async (req, res) => {
+        const validationErrors = validationResult(req);
+
+        if (validationErrors.errors.length > 0) {
+            return res.render('users/editProfile', {
+                errors: validationErrors.mapped(),
+                oldData: req.body,
+                user: req.session.userLogged
+            });
+        }
+
+        const userId = req.session.userLogged.id;
+        const { password, newPassword, repeatPassword } = req.body;
+        try {
+            const user = await db.Usuario.findByPk(userId);
+            const isPasswordValid = await bcrypt.compare(password, user.contraseña);
+
+            if (!isPasswordValid) {
+                return res.render('users/editProfile', {
+                    errors: {
+                        password: {
+                            msg: 'La contraseña actual es incorrecta'
+                        }
+                    },
+                    oldData: req.body,
+                    user: req.session.userLogged
+                });
+            }
+            const hashedPassword = await bcrypt.hash(newPassword, 10);
+            await user.update({
+                contraseña: hashedPassword
+            });
+            return res.redirect('/users/profile');
+        } catch (error) {
+            console.error(error);
+            return res.status(500).send('Error interno del servidor');
         }
     },
     delete: function(req,res){

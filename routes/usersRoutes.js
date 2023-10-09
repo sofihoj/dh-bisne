@@ -6,13 +6,16 @@ const validationsSignUp = require('../middlewares/validationsSignUp');
 const validationsLogIn = require('../middlewares/validationsLogIn');
 const guestMiddleware = require('../middlewares/guestMiddleware');
 const authMiddleware = require('../middlewares/authMiddleware');
+const validationsPassword = require('../middlewares/validationsPassword');
+
 
 router.get('/login', guestMiddleware, usersController.login)
 router.get('/signup', guestMiddleware, usersController.signup)
 router.post('/signup', validationsSignUp, usersController.processRegister)
 router.post('/login', validationsLogIn, usersController.processLogin)
 router.get('/profile', authMiddleware, usersController.profile)
-// router.get('/profile/info/', usersController.edit)
+router.get('/profile/edit/', usersController.edit)
+router.put('/profile/edit-password/', authMiddleware, validationsPassword, usersController.changePassword);
 router.get('/logout', usersController.logout)
 router.get('/delete/:nombre', usersController.delete);
 
