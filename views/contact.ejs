@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Bisne macrame | HOME</title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="/css/styles.css">
+        <link rel="stylesheet" href="/css/contact.css">
+    </head>
+
+
+    <body>
+        <%- include('./partials/header.ejs')%>
+        <main>
+            <%- include('./partials/sidebar.ejs')%>
+            <div class="banner">
+                <img src="/img/home-banner.jpg" alt="">
+            </div>
+            <section class="popular-categories">
+                <div class="main-bar">
+                    <p> Contáctanos </p> 
+                </div>
+                    <body>
+                        <div class = "titulo"> 
+                            <h2 align="center"> Servicio al Cliente </h2>
+                        </div>
+                        <div class = "subtitulo"> 
+                            <h3> 
+                                <a href="servicioalcliente@dhbisne.com"> servicioalcliente@dhbisne.com </a>                         
+                            </h3>
+                        </div>
+                        <div class = "titulo"> 
+                            <h2> PQR´S </h2>
+                        </div>        
+                        
+                        <div class = "titulo"> 
+                            <h2> Wholesale </h2>
+                        </div>
+
+                        <div class = "subtitulo"> 
+                            <h3> <a href="wholesae@dhbisne.com"> wholesale@dhbisne.com </a> </h3>
+                        </div>
+
+
+                    </body>
+                    </a>
+                </div>
+                    
+
+
+        <%- include('./partials/footer.ejs')%>
+        <script>
+            /*Set ancho de sidebar*/
+            function openNav() {
+                document.getElementById("mySidebar").style.width = "300px";
+            }
+
+            /*Set posición de sidebar*/
+            function closeNav() {
+                document.getElementById("mySidebar").style.width = "0";
+            }
+
+            //Obtener del menú "Categorías" y su submenú
+            const categoriasMenu = document.querySelector('.menu-item');
+            // const submenu = document.querySelector('.submenu');
+
+            //Agrega un evento de clic al elemento del menú "Categorías"
+            categoriasMenu.addEventListener('click', function() {
+                // Alternar la clase "collapsed" en el elemento del menú "Categorías"
+                categoriasMenu.classList.toggle('collapsed');
+            });
+
+            categoriasMenu.addEventListener('click', function() {
+                // Alternar la clase "open" en el elemento del menú "Categorías"
+                categoriasMenu.classList.toggle('open');
+                });
+        </script>
+    </body>
+</html>

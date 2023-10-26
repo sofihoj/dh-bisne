@@ -1,0 +1,15 @@
+.titulo {
+    color: #9A6C6C;
+    font-family: 'Noto Sans', sans-serif;
+    text-transform: uppercase;
+    font-size: 16px;
+    text-align: center;
+}
+
+.subtitulo{
+    font-family: 'Noto Sans', sans-serif;
+    color: #9A6C6C;
+    font-size: 14px;
+    margin-left: 20px;
+    text-align: center;
+}

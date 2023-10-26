@@ -41,4 +41,4 @@ app.use((req,res,next)=>{
     res.status(404).render('not-found');
 })
 
-app.listen(PORT, () => console.log("Listening on http://localhost:" + PORT));
+app.listen("3000", () => console.log("Listening on http://localhost:" + "3000"));
