@@ -1,0 +1,1 @@
+console.log("Estoy en un archivo dentro de public/js");

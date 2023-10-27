@@ -16,10 +16,13 @@
                 <p>Iniciar sesión</p>
             </div>
             <div class="form">
-                <form action="/users/login" method="POST">
+                <form action="/users/login" method="POST" class="reservation">
+                    <div class="errores"> 
+                        <ul> </ul>
+                    </div>
                     <div class="form-group">
                         <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" class="<%= locals.errors && errors.email ? 'input-error' : ''  %>" value="<%= locals.oldData ? oldData.email : null %>">
+                        <input type="email" id="email" name="email" class="<%= locals.errors && errors.email ? 'input-error' : ''  %> " value="<%= locals.oldData ? oldData.email : null %>">
                         <% if (locals.errors && errors.email) { %>
                             <div class="text-error">
                                 <%= errors.email.msg %>
@@ -44,6 +47,8 @@
                 <p>Si no tienes una cuenta, crea una <a href="signup">aquí</a>.</p>
             </div>
         </main>
+        <script src="/js/login-front.js"> </script>
+
         <%- include('../partials/footer.ejs')%>
         <script>
             /*Set ancho de sidebar*/
