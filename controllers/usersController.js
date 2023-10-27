@@ -2,43 +2,55 @@ const bcrypt = require('bcryptjs');
 const { validationResult } = require('express-validator')
 const db = require('../database/models');
 
+
 const User = require('../models/User');
 
 const usersController = {
     signup: (req, res) => {
         res.render('users/signup')
     },
-    processRegister: (req, res) => {
-        const registerValidation = validationResult(req);
-        //registerValidation es un objeto literal con una propiedad errors que es un array
-        if (registerValidation.errors.length > 0) {
-            return res.render('users/signup', {
-                errors: registerValidation.mapped(), //mapped() convierte el array errors de registerValidation en un objeto literal donde cada uno tiene las propiedades de origen
-                oldData: req.body
-            })
+    processRegister: async (req, res) => {
+        try {
+            const registerValidation = validationResult(req);
+
+            if (registerValidation.errors.length > 0) {
+                return res.render('users/signup', {
+                    errors: registerValidation.mapped(),
+                    oldData: req.body
+                });
+            }
+
+            const { name, lastName, email, phoneNumber, city, address, password } = req.body;
+
+            const existingUser = await db.Usuario.findOne({ where: { email } });
+
+            if (existingUser) {
+                return res.render('users/signup', {
+                    errors: {
+                        email: {
+                            msg: 'Este email ya está registrado'
+                        }
+                    },
+                    oldData: req.body
+                });
+            }
+
+            await db.Usuario.create({
+                nombre: name,
+                apellido: lastName,
+                email: email,
+                contraseña: bcrypt.hashSync(password, 10),
+                telefono: phoneNumber,
+                direccion: address,
+                ciudad: city,
+                tipo_usuario_id: 2,
+            });
+
+            return res.redirect('/users/login');
+        } catch (error) {
+            console.error(error);
+            return res.status(500).send('Error en el servidor');
         }
-        const existingUser = db.Usuario.findOne({ where: { email:req.body.email } });
-        if (existingUser) {
-            return res.render('users/signup', {
-                errors: {
-                    email: {
-                        msg: 'Este email ya está registrado'
-                    }
-                },
-                oldData: req.body
-            })
-        }
-        db.Usuario.create({
-            nombre: req.body.name,
-            apellido: req.body.lastName,
-            email: req.body.email,
-            contraseña: bcrypt.hashSync(password, 10),
-            telefono: req.body.phoneNumber,
-            direccion: req.body.address,      
-            ciudad: req.body.city,
-            tipo_usuario_id:2,
-        })
-		return res.redirect('/users/login');
     },
     login: (req, res) => {
         res.render('users/login');
@@ -51,7 +63,8 @@ const usersController = {
                 oldData: req.body
             })
         }
-        db.Usuario.findOne({ where: { email:req.body.email } })
+        const { email, password } = req.body;
+        db.Usuario.findOne({ where: { email } })
         .then(userToLogin => {
             if (!userToLogin) {
                 return res.render('users/login', {
@@ -63,21 +76,23 @@ const usersController = {
                 });
             }
 
-			let isOkThePassword = bcrypt.compareSync(req.body.password, userToLogin.contraseña);
-			if (isOkThePassword) {
-				delete userToLogin.password; //para evitar que me traiga la password a la session, por seguridad
-				req.session.userLogged = userToLogin; //guardo la sesión del usuario
+            const isOkThePassword = bcrypt.compareSync(password, userToLogin.contraseña);
 
-				if(req.body.remember_user) {
-					res.cookie('userEmail', req.body.email, { maxAge: (1000 * 60) * 60 })
-				}
+            if (isOkThePassword) {
+                // Eliminar la contraseña antes de almacenarla en la sesión
+                delete userToLogin.contraseña;
+                req.session.userLogged = userToLogin; // Guardar la sesión del usuario
 
-				if (userToLogin.tipo_usuario_id === 1) {
-                    return res.redirect('/administrar');
-                } else {
-                    return res.redirect('/users/profile');
+                if (req.body.remember_user) {
+                    res.cookie('userEmail', email, { maxAge: (1000 * 60) * 60 });
                 }
-			} else {
+
+                if (userToLogin.tipo_usuario_id === 2) {
+                    return res.redirect('/users/profile');
+                } else if (userToLogin.tipo_usuario_id === 1) {
+                    return res.redirect('/administrar');
+                }
+            } else {
                 return res.render('users/login', {
                     errors: {
                         password: {
@@ -87,57 +102,63 @@ const usersController = {
                     oldData: req.body
                 });
             }
-		})
+        })
+        .catch(error => {
+            console.error(error);
+            return res.status(500).send('Error en el servidor');
+        });
     },
-    // profile: (req, res) => {
-    //     res.render('users/profile', {
-    //         user: req.session.userLogged
-    //     });
-    // },
-    //profile: (req, res) => {
-    //    const userCategory = req.session.userLogged.category;
-    //    if (userCategory === 'admin') {
-    //         return res.redirect('/administrar');
-    //    } else if (userCategory === 'user') {
-    //        return res.render('users/profile', {
-    //            user: req.session.userLogged
-    //      });
-    //    } else {
-    //        return res.status(400).send('Categoría de usuario desconocida');
-    //  }
-    // },
-    
-    //Isabel
     profile: (req, res) => {
         const userCategory = req.session.userLogged.tipo_usuario_id;
-            if (userCategory === 1) {
-                return res.redirect('/administrar');
-            } else if (userCategory === 2) {
-                return res.render('users/profile', {
+
+        if (userCategory === 1) {
+            return res.redirect('/administrar');
+        } else if (userCategory === 2) {
+            return res.render('users/profile', {
                 user: req.session.userLogged
             });
-            } else {
-                return res.status(400).send('Categoría de usuario desconocida');
+        } else {
+            return res.status(400).send('Categoría de usuario desconocida');
         }
     },
     edit: (req, res) => {
         res.render('users/editProfile', { user: req.session.userLogged });
     },
-    update: async (req, res) => {
-        try {
-            const nombre = req.params.nombre;
-            const usuario = await db.Usuario.findOne({ where: { nombre } }, {include: ['categoria']})
-            const tipoUsuario = await db.tipoUsuario.findAll();
-            console.log(usuario)
-            if (!usuario) {
-                return res.status(404).send('Usuario no encontrado');
-            }
+    update: (req, res) => {
+        const validationErrors = validationResult(req);
 
-            return res.render('users/editProfile', {usuario});
-        } catch {
-            console.error('Error:', error);
-            res.status(500).send('Error interno del servidor');
+        if (validationErrors.errors.length > 0) {
+            // Hay errores de validación, muestra los mensajes de error en la vista
+            return res.render('users/editProfile', {
+                errors: validationErrors.mapped(),
+                oldData: req.body,
+                user: req.session.userLogged
+            });
         }
+
+        let userId = req.session.userLogged.id
+        db.Usuario
+            .update({
+                    nombre: req.body.name,
+                    apellido: req.body.lastName,
+                    email: req.body.email,
+                    telefono: req.body.phoneNumber,
+                    direccion: req.body.address,
+                    ciudad: req.body.city
+                },
+                {
+                    where: {id:userId}
+                })
+                .then(() => {
+                    // Después de la actualización en la base de datos, actualiza la sesión del usuario
+                    return db.Usuario.findByPk(userId); // Recupera los datos actualizados del usuario
+                })
+                .then(updatedUser => {
+                    // Actualiza la sesión con los datos actualizados del usuario
+                    req.session.userLogged = updatedUser.get({ plain: true });
+
+                    return res.redirect('/users/profile');
+                })
     },
     changePassword: async (req, res) => {
         const validationErrors = validationResult(req);
@@ -150,13 +171,16 @@ const usersController = {
             });
         }
 
-        const userId = req.session.userLogged.id;
+        const userId = req.session.userLogged.id; // ID del usuario autenticado
         const { password, newPassword, repeatPassword } = req.body;
         try {
+            // Buscar al usuario por su ID
             const user = await db.Usuario.findByPk(userId);
+            // Verificar si la contraseña actual coincide
             const isPasswordValid = await bcrypt.compare(password, user.contraseña);
 
             if (!isPasswordValid) {
+                // La contraseña actual no coincide, muestra un mensaje de error
                 return res.render('users/editProfile', {
                     errors: {
                         password: {
@@ -167,32 +191,39 @@ const usersController = {
                     user: req.session.userLogged
                 });
             }
+            // Hash de la nueva contraseña
             const hashedPassword = await bcrypt.hash(newPassword, 10);
+            // Actualizar la contraseña del usuario en la base de datos
             await user.update({
                 contraseña: hashedPassword
             });
+            // Redirigir al perfil del usuario después de cambiar la contraseña
             return res.redirect('/users/profile');
         } catch (error) {
             console.error(error);
             return res.status(500).send('Error interno del servidor');
         }
     },
-    delete: function(req,res){
-        db.Usuario.destroy({
-            where:{
-                id:req.params.nombre
-            }
+    destroy: (req, res) => {
+        //const userId = req.session.userLogged.id; // ID del usuario autenticado
+
+        db.Usuario
+        .destroy({
+            where: {
+                id: req.session.userLogged.id
+            }, force: true
         })
-        return res.redirect("/profile")
+        .then(req.session.destroy())
+        .then(() => {
+            return res.redirect('/')
+        })
         .catch(error => res.send(error))
     },
-
     logout: (req, res) => {
         res.clearCookie('userEmail');
         req.session.destroy();
         return res.redirect('/');
-    },
-  
+    }
 }
 
 module.exports = usersController;
