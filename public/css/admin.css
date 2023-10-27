@@ -113,6 +113,13 @@ form {
     width: 65%;
 }
 
+.form .inputs p {
+    color: red;
+    text-align: end;
+    font-size: 0.8em;
+    margin-top: -10px;
+}
+
 .form {
     background-color: #d9d9d9;
     display: flex;
