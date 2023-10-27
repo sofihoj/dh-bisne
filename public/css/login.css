@@ -97,6 +97,28 @@ form {
     margin-left: 2px;
 }
 
+.form-group .error {
+    color: red;
+    text-align: end;
+    font-size: 0.8em;
+    margin-top: 0;
+}
+
+.form .form-group p {
+    color: red;
+    text-align: end;
+    font-size: 0.8em;
+    margin-top: 0;
+}
+
+.inputs .is-valid {
+    border: 1px solid #1a9616;
+}
+
+.form-group .is-valid {
+    border: 1px solid #1a9616;
+}
+
 @media (max-width: 480px) {
     form {
         width: 90%;
